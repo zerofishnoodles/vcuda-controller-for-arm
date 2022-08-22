@@ -1,8 +1,8 @@
 # stage 1
 FROM nvidia/cuda:11.2.0-devel-ubuntu18.04 as build
 
-RUN apt update && apt install -y --no-install-recommends \
-  curl
+#RUN apt update && apt install -y --no-install-recommends curl
+RUN apt update && apt-get install -y curl
 
 RUN curl -s -L https://nvidia.github.io/libnvidia-container/gpgkey | apt-key add -
 
@@ -50,5 +50,5 @@ FROM centos:7
 ARG version
 ARG commit
 
-COPY --from=rpmpkg  /root/rpmbuild/RPMS/x86_64/vcuda-${version}-${commit}.el7.x86_64.rpm /tmp
-RUN rpm -ivh /tmp/vcuda-${version}-${commit}.el7.x86_64.rpm && rm -rf /tmp/vcuda-${version}-${commit}.el7.x86_64.rpm
+COPY --from=rpmpkg  /root/rpmbuild/RPMS/aarch64/vcuda-${version}-${commit}.el7.aarch64.rpm /tmp
+RUN rpm -ivh /tmp/vcuda-${version}-${commit}.el7.aarch64.rpm && rm -rf /tmp/vcuda-${version}-${commit}.el7.aarch64.rpm
